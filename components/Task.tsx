@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Task as TaskType } from "../types/Tasks";
 import { Button } from "./ui/button";
 import {
   Dialog,
@@ -11,6 +10,7 @@ import {
   DialogTrigger,
 } from "../components/ui/dialog";
 import { Input } from "../components/ui/input";
+import { type TaskType } from "@/lib/api";
 
 interface TaskProps {
   task: TaskType;
@@ -20,7 +20,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
   return (
     <div className="flex items-center gap-4 bg-slate-50 px-4 min-h-14 justify-between">
       <p className="text-[#0d141c] text-base font-normal leading-normal flex-1 truncate">
-        {task.text}
+        {task.description}
       </p>
       <div className="shrink-0">
         <div className="flex size-7 items-center justify-center">

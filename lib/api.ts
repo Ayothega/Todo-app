@@ -20,7 +20,7 @@ export interface CreateTask {
   }
   */
 // Fetch all posts
-export async function fetchTasks(): Promise<Task[]> {
+export async function fetchTasks(): Promise<TaskType[]> {
   const response = await fetch("/api/tasks");
   if (!response.ok) {
     throw new Error("Failed to fetch tasks");
@@ -29,7 +29,7 @@ export async function fetchTasks(): Promise<Task[]> {
 }
 
 // Fetch a single post
-export async function fetchTask(id: string): Promise<Task> {
+export async function fetchTask(id: string): Promise<TaskType> {
   const response = await fetch(`/api/tasks/${id}`);
   if (!response.ok) {
     throw new Error("Failed to fetch task");
@@ -38,7 +38,7 @@ export async function fetchTask(id: string): Promise<Task> {
 }
 
 // Create a new post
-export async function createPost(data: CreateTask): Promise<Task> {
+export async function createPost(data: CreateTask): Promise<TaskType> {
   const response = await fetch("/api/tasks", {
     method: "POST",
     headers: {
