@@ -1,7 +1,7 @@
 import * as React from "react";
 import { tasksData } from "../data/data";
 import Task from "./Task";
-import { Task as TaskType } from "../types/Tasks";
+import { fetchTasks, type TaskType } from "@/lib/api";
 
 const Tasks: React.FC = () => {
   return (
