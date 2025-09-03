@@ -7,19 +7,16 @@ export interface TaskType {
 }
 
 export interface CreateTask {
-  id: string;
   description: string;
   completed?: boolean;
 }
 
-/*
-  export interface UpdatePostData {
-    title: string
-    content?: string
-    published?: boolean
-  }
-  */
-// Fetch all posts
+export interface UpdateTask {
+  description: string;
+  completed?: boolean;
+}
+
+// Fetch all tasks
 export async function fetchTasks(): Promise<TaskType[]> {
   const response = await fetch("/api/tasks");
   if (!response.ok) {
@@ -28,7 +25,7 @@ export async function fetchTasks(): Promise<TaskType[]> {
   return response.json();
 }
 
-// Fetch a single post
+// Fetch a single task
 export async function fetchTask(id: string): Promise<TaskType> {
   const response = await fetch(`/api/tasks/${id}`);
   if (!response.ok) {
@@ -37,8 +34,8 @@ export async function fetchTask(id: string): Promise<TaskType> {
   return response.json();
 }
 
-// Create a new post
-export async function createPost(data: CreateTask): Promise<TaskType> {
+// Create a new task
+export async function createTask(data: CreateTask): Promise<TaskType> {
   const response = await fetch("/api/tasks", {
     method: "POST",
     headers: {
@@ -52,32 +49,46 @@ export async function createPost(data: CreateTask): Promise<TaskType> {
   }
   return response.json();
 }
-/*
-  // Update a post
-  export async function updatePost(id: string, data: UpdatePostData): Promise<Post> {
-    const response = await fetch(`/api/posts/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-  
-    if (!response.ok) {
-      throw new Error("Failed to update post")
-    }
-    return response.json()
+
+// Update a task
+export async function updateTask(id: string, data: UpdateTask): Promise<TaskType> {
+  const response = await fetch(`/api/tasks/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update task");
   }
+  return response.json();
+}
 
+// Toggle task completion status
+export async function toggleTaskCompletion(id: string, completed: boolean): Promise<TaskType> {
+  const response = await fetch(`/api/tasks/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ completed }),
+  });
 
-// Delete a post
-export async function deletePost(id: string): Promise<void> {
-  const response = await fetch(`/api/posts/${id}`, {
+  if (!response.ok) {
+    throw new Error("Failed to toggle task completion");
+  }
+  return response.json();
+}
+
+// Delete a task
+export async function deleteTask(id: string): Promise<void> {
+  const response = await fetch(`/api/tasks/${id}`, {
     method: "DELETE",
   });
 
   if (!response.ok) {
-    throw new Error("Failed to delete post");
+    throw new Error("Failed to delete task");
   }
 }
-*/
